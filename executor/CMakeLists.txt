@@ -23,16 +23,22 @@
 
 ## Note: on OS X you should install XCode and the associated command-line tools
 
+# Project setup
+project(Jarvis)
+
 ## --- Library dependencies ---
-project(testPaho)
 set (THREADS_PREFER_PTHREAD_FLAG ON)
 cmake_minimum_required(VERSION 3.18)
+set(JSON_BuildTests OFF CACHE INTERNAL "")
 
 find_package(Threads REQUIRED)
 
+#Compile the JSON lib
+add_subdirectory(nlohmann_json)
+
 ## binary files
-add_executable(async_publish main.cpp)
+add_executable(jarvis_executor main.cpp MQTTClient.cpp)
 
 ## link binaries
-target_link_libraries(async_publish paho-mqttpp3 paho-mqtt3a pthread)
+target_link_libraries(jarvis_executor paho-mqttpp3 paho-mqtt3a pthread nlohmann_json::nlohmann_json)
 

@@ -6,23 +6,30 @@
 #include <chrono>
 #include <cstring>
 #include <stdio.h>
+#include <nlohmann/json.hpp>
 #include "mqtt/async_client.h"
 
 #include "MQTTClient.hpp"
+
+using json = nlohmann::json;
 
 /////////////////////////////////////////////////////////////////////////////
 
 int main(int argc, char* argv[])
 {
+	json message;
+	message["intent"] = "set";
+	message["action"] = "TurnOn";
+	message["targetNode"] = "0";
+	message["targetDevice"] = "0"; 
 
-	bool needExit = false;
 	char buff[255];
 
 	//Declare client
 	MQTTClient *client = new MQTTClient();
 
 	//While not quit command
-	while(!needExit){
+	while(true){
 		
 		//Print the bash line and ask for command
 		cout<<"JV> ";
@@ -30,9 +37,20 @@ int main(int argc, char* argv[])
 
 		//If quit command
 		if(strcmp(buff,"/quit") == 0){
-			needExit = true;
 			break;
 		}
+
+		//If on command
+		if(strcmp(buff,"on") == 0){
+			message["action"] = "TurnOn";
+
+		}else if(strcmp(buff,"off") == 0){ //If off command
+			message["action"] = "TurnOff";
+		}else continue;
+		
+
+		string strMsg = message.dump();
+		strcpy(buff,strMsg.c_str());
 
 		//If not quit commmand, publish the message
 		client->publishMessage(buff,"/home/light");

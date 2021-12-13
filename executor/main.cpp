@@ -18,8 +18,9 @@ using json = nlohmann::json;
 int main(int argc, char* argv[])
 {
 	json message;
-	message["intent"] = "set";
-	message["action"] = "TurnOn";
+	message["intent"] = "setProperty";
+	message["property"] = "onStatus";
+	message["value"] = 1;
 	message["targetNode"] = "0";
 	message["targetDevice"] = "0"; 
 
@@ -42,10 +43,10 @@ int main(int argc, char* argv[])
 
 		//If on command
 		if(strcmp(buff,"on") == 0){
-			message["action"] = "TurnOn";
+			message["value"] = 1;
 
 		}else if(strcmp(buff,"off") == 0){ //If off command
-			message["action"] = "TurnOff";
+			message["value"] = 0;
 		}else continue;
 		
 

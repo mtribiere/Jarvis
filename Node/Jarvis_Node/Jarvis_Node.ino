@@ -1,8 +1,11 @@
-#include "EspMQTTClient.h"
 #include <ArduinoJson.h>
+#include <EspMQTTClient.h>
 
+#define DEBUG_BUILD 0
+#define RELAY_PIN 5
+#define STATUS_LED_PIN 4
+#define NODE_ID 0
 
-#define LED_PIN 5
 
 EspMQTTClient client(
   "AndroidAP_4153",
@@ -16,16 +19,34 @@ EspMQTTClient client(
 
 void setup()
 {
-  Serial.begin(115200);
-
-  // Optional functionalities of EspMQTTClient
-  client.enableDebuggingMessages(); // Enable debugging messages sent to serial output
-  client.enableHTTPWebUpdater("admin","admin"); // Enable the web updater. User and password default to values of MQTTUsername and MQTTPassword. These can be overridded with enableHTTPWebUpdater("user", "password").
-  client.enableOTA(); // Enable OTA (Over The Air) updates. Password defaults to MQTTPassword. Port is the default OTA port. Can be overridden with enableOTA("password", port).
-  client.enableLastWillMessage("TestClient/lastwill", "I am going offline");  // You can activate the retain flag by setting the third parameter to true
+  #if DEBUG_BUILD
+   Serial.begin(115200);
+  #endif
 
   //Enable LED as output
-  pinMode(LED_PIN, OUTPUT);
+  pinMode(RELAY_PIN, OUTPUT);
+  pinMode(STATUS_LED_PIN, OUTPUT);
+
+  digitalWrite(STATUS_LED_PIN,LOW);
+
+  // Enable build option
+  #if DEBUG_BUILD
+    client.enableDebuggingMessages(); // Enable debugging messages sent to serial output
+  #else
+    client.enableOTA(); // Enable OTA (Over The Air) updates. Password defaults to MQTTPassword. Port is the default OTA port. Can be overridden with enableOTA("password", port).
+  #endif
+
+  //Construct the last will message
+  DynamicJsonDocument doc(1024);
+  doc["intent"] = "disconnectNode";
+  doc["targetNode"] = NODE_ID;
+  
+  String lastWillMessage;
+  serializeJson(doc,lastWillMessage);
+  client.enableLastWillMessage("/home/device/status", lastWillMessage.c_str());  // You can activate the retain flag by setting the third parameter to true
+
+  digitalWrite(STATUS_LED_PIN,HIGH);
+
 }
 
 void onConnectionEstablished()
@@ -36,16 +57,23 @@ void onConnectionEstablished()
     DynamicJsonDocument doc(1024);
     deserializeJson(doc, payload);
 
-    const char* action = doc["action"];
+    const char* intent = doc["intent"];
     
-    if(strcmp(action,"TurnOn") == 0){
-      digitalWrite(LED_PIN,HIGH);
+    if(strcmp(intent,"setProperty") == 0){
+      
+      const char* property = doc["property"];
+      if(strcmp(property,"onStatus") == 0){
+          
+          int value = doc["value"];
+          digitalWrite(RELAY_PIN,value);
+        
+      }
     }
-    if(strcmp(action,"TurnOff") == 0){
-      digitalWrite(LED_PIN,LOW);
-    }
-    
-    Serial.println(payload);
+
+    #if DEBUG_BUILD
+      Serial.println(payload);
+    #endif
+
   });
 }
 

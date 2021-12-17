@@ -20,14 +20,11 @@ jobs:
       run: sudo apt update
        && sudo apt install libboost-all-dev
        && sudo apt install doxygen
-    
-    - name: Prepare build
-      run: cd Executor && mkdir build && cd build && pwd
 
     - name: Configure CMake
-      run: cmake ..
+      run: cd Executor && mkdir build && cd build && cmake ..
       
     - name: Build the doc
-      run: make docs
+      run: cd Executor && cd build && make docs
         
       

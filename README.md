@@ -1,5 +1,5 @@
 # Jarvis
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) <br>
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![CMake](https://github.com/mtribiere/Jarvis/actions/workflows/cmake.yml/badge.svg?branch=main)](https://github.com/mtribiere/Jarvis/actions/workflows/cmake.yml)<br>
 
 ## Description
 A set of tools and protocols to automate your house<br>

@@ -9,14 +9,14 @@ For now, there is 3 main componants in this chain, the App, the executor, and th
 <br><br>
   
 ## Compiling the Executor
-The executor can be compiled with 2 modes, controled by the ```CONSOLE_MODE``` variable at the top of <b><i>main.cpp</i></b>
+The executor can be compiled with 2 modes, controled by the ```CONSOLE_BUILD``` variable at the top of <b><i>main.cpp</i></b>
 
-| CONSOLE_MODE | Executor |
+| CONSOLE_BUILD | Executor |
 | ------------- | ------------- |
 | 1  | Disable the HTTP server and swap a terminal to debug manually devices  |
 | 0  | Disable the console and enable the API/HTTP server  |
 
-Before compiling, you need to install Boost, CrowCpp (If you enable the API/HTTP version), and Paho-MQTT.
+Before compiling, you need to install Boost, CrowCpp (If you enable API/HTTP), and Paho-MQTT.
 
 ```console
 cd Jarvis/executor

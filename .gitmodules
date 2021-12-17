@@ -1,3 +1,6 @@
 [submodule "executor/nlohmann_json"]
 	path = executor/nlohmann_json
 	url = https://github.com/nlohmann/json
+[submodule "Executor/nlohmann_json"]
+	path = Executor/nlohmann_json
+	url = https://github.com/nlohmann/json

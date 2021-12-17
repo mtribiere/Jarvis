@@ -18,7 +18,7 @@ jobs:
 
     - name: Install deps 
       run: sudo apt update
-       && sudo apt install libboost-dev-all
+       && sudo apt install libboost-all-dev
        && sudo apt install Doxygen
     
     - name: Prepare build

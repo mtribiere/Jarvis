@@ -20,13 +20,21 @@ jobs:
 
     - name: Install deps 
       run: sudo apt update
-       && sudo apt install libboost-all-dev
+       && sudo apt install libboost-all-dev 
        && sudo apt install doxygen
+       && sudo apt install graphviz
 
     - name: Configure CMake
       run: cd Executor && mkdir build && cd build && cmake ..
       
     - name: Build the doc
       run: cd Executor && cd build && make docs
+    
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@releases/v3
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages # The branch the action should deploy to.
+        FOLDER: Executor/build/executor/docs/html # The folder the action should deploy.
         
       

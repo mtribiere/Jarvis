@@ -4,6 +4,9 @@
 ## Description
 A set of tools and protocols to automate your house<br>
 For now, there is 3 main componants in this chain, the App, the executor, and the firmware.
+<br><br>
+<img align="middle" src="pics/arch.png" width="600">
+<br><br>
   
 ## Compiling the Executor
 The executor can be compiled with 2 modes, controled by the ```CONSOLE_MODE``` variable at the top of <b><i>main.cpp</i></b>

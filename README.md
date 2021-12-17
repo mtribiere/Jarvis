@@ -7,6 +7,9 @@ For now, there is 3 main componants in this chain, the App, the executor, and th
 <br><br>
 <img align="middle" src="pics/arch.png" width="600">
 <br><br>
+
+## Demo
+[![Watch the video](https://img.youtube.com/vi/Sw54WxUngtA/default.jpg)](https://youtu.be/Sw54WxUngtA)
   
 ## Compiling the Executor
 The executor can be compiled with 2 modes, controled by the ```CONSOLE_BUILD``` variable at the top of <b><i>main.cpp</i></b>

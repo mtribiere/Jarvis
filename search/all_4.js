@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['macaron_4',['macaron',['../namespacemacaron.html',1,'']]],
-  ['mqttclient_5',['MQTTClient',['../classMQTTClient.html',1,'']]]
+  ['encode_5',['Encode',['../classmacaron_1_1Base64.html#ad48bf2fa74794712b80757cbef02b9bf',1,'macaron::Base64']]]
 ];

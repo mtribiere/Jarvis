@@ -29,9 +29,16 @@
 
 namespace macaron {
 
+/// Helper class for decoding and encoding Base64 ciphers
 class Base64 {
  public:
 
+  /**
+   * @brief Encode a string to Base64
+   * 
+   * @param data To string to encode
+   * @return std::string The resulting cipher
+   */
   static std::string Encode(const std::string data) {
     static constexpr char sEncodingTable[] = {
       'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
@@ -72,6 +79,13 @@ class Base64 {
     return ret;
   }
 
+  /**
+   * @brief Decode a Base64 ciper to string
+   * 
+   * @param input Pointer to cipher
+   * @param out Pointer to the result string
+   * @return std::string Empty String
+   */
   static std::string Decode(const std::string& input, std::string& out) {
     static constexpr unsigned char kDecodingTable[] = {
       64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64, 64,

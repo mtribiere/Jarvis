@@ -10,7 +10,7 @@ env:
   BUILD_TYPE: Release
 
 jobs:
-  Configure_env:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,19 +27,9 @@ jobs:
     - name: Configure CMake
       run: cd Executor && mkdir build && cd build && cmake ..
       
-  Build_doc:
-    runs-on: ubuntu-latest
-    needs: Configure_env
-    steps:
-      
     - name: Build the doc
       run: cd Executor && cd build && make docs
-      
-  Publish_doc:
-    runs-on: ubuntu-latest
-    needs: Build_doc
     
-    steps:
     - name: Deploy
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:

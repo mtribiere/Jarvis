@@ -69,7 +69,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="MQTTClient_8hpp_source.html">MQTTClient.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="Callback_8hpp_source.html">Callback.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for callback:</div>
 <div class="dyncontent">
@@ -97,11 +97,17 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>connection_lost</b> (
 <tr class="memitem:a7897f1ec0bcffd7aafba6df4c964aa62"><td class="memItemLeft" align="right" valign="top"><a id="a7897f1ec0bcffd7aafba6df4c964aa62"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>delivery_complete</b> (mqtt::delivery_token_ptr tok) override</td></tr>
 <tr class="separator:a7897f1ec0bcffd7aafba6df4c964aa62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab97d2f162d655602b2d46b6a5e12e6c0"><td class="memItemLeft" align="right" valign="top"><a id="ab97d2f162d655602b2d46b6a5e12e6c0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>connected</b> (const std::string &amp;cause) override</td></tr>
+<tr class="separator:ab97d2f162d655602b2d46b6a5e12e6c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb5432ae35450672ab1f582d34d80797"><td class="memItemLeft" align="right" valign="top"><a id="abb5432ae35450672ab1f582d34d80797"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>message_arrived</b> (mqtt::const_message_ptr msg) override</td></tr>
+<tr class="separator:abb5432ae35450672ab1f582d34d80797"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A callback class for use with the main MQTT client. </p>
 </div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/runner/work/Jarvis/Jarvis/Executor/executor/include/<a class="el" href="MQTTClient_8hpp_source.html">MQTTClient.hpp</a></li>
+<li>/home/runner/work/Jarvis/Jarvis/Executor/executor/include/<a class="el" href="Callback_8hpp_source.html">Callback.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

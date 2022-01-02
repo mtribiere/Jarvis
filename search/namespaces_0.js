@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['macaron_13',['macaron',['../namespacemacaron.html',1,'']]]
+  ['macaron_16',['macaron',['../namespacemacaron.html',1,'']]]
 ];

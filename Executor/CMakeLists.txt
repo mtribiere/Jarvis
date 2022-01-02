@@ -1,3 +1,8 @@
+# CMakeLists.txt
+#
+# CMake file part of the Jarvis Home Automation Project
+#######################################################
+
 project(Jarvis_executor)
 
 # Project setup
@@ -14,5 +19,5 @@ find_package(Threads REQUIRED)
 set(CMAKE_INSTALL_PREFIX .)
 
 #Compile lib and code
+add_subdirectory(yalm-cpp)
 add_subdirectory(executor)
-add_subdirectory(nlohmann_json)

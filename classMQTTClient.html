@@ -71,16 +71,16 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a18b35a3285595c607aa104d673292f52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a18b35a3285595c607aa104d673292f52">publishMessage</a> (char *msg, char *topic)</td></tr>
-<tr class="memdesc:a18b35a3285595c607aa104d673292f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish a MQTT message on a topic.  <a href="classMQTTClient.html#a18b35a3285595c607aa104d673292f52">More...</a><br /></td></tr>
-<tr class="separator:a18b35a3285595c607aa104d673292f52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0850842da632b94c426c19f2f2c038ec"><td class="memItemLeft" align="right" valign="top"><a id="a0850842da632b94c426c19f2f2c038ec"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>subscribeToTopic</b> (string topic)</td></tr>
+<tr class="memitem:a74706e90f6b019482a1df9a85d110004"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a74706e90f6b019482a1df9a85d110004">publishMessage</a> (string msg, string topic)</td></tr>
+<tr class="memdesc:a74706e90f6b019482a1df9a85d110004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish a MQTT message on a topic.  <a href="classMQTTClient.html#a74706e90f6b019482a1df9a85d110004">More...</a><br /></td></tr>
+<tr class="separator:a74706e90f6b019482a1df9a85d110004"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0850842da632b94c426c19f2f2c038ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a0850842da632b94c426c19f2f2c038ec">subscribeToTopic</a> (string topic)</td></tr>
+<tr class="memdesc:a0850842da632b94c426c19f2f2c038ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a topic.  <a href="classMQTTClient.html#a0850842da632b94c426c19f2f2c038ec">More...</a><br /></td></tr>
 <tr class="separator:a0850842da632b94c426c19f2f2c038ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a18b35a3285595c607aa104d673292f52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18b35a3285595c607aa104d673292f52">&#9670;&nbsp;</a></span>publishMessage()</h2>
+<a id="a74706e90f6b019482a1df9a85d110004"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74706e90f6b019482a1df9a85d110004">&#9670;&nbsp;</a></span>publishMessage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -88,13 +88,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>subscribeToTopic</b> 
         <tr>
           <td class="memname">void MQTTClient::publishMessage </td>
           <td>(</td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>msg</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>topic</em>&#160;</td>
         </tr>
         <tr>
@@ -110,6 +110,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>subscribeToTopic</b> 
   <table class="params">
     <tr><td class="paramname">msg</td><td>The message </td></tr>
     <tr><td class="paramname">topic</td><td>The topic </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0850842da632b94c426c19f2f2c038ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0850842da632b94c426c19f2f2c038ec">&#9670;&nbsp;</a></span>subscribeToTopic()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MQTTClient::subscribeToTopic </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>topic</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Subscribe to a topic. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">topic</td><td></td></tr>
   </table>
   </dd>
 </dl>

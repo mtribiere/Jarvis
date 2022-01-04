@@ -33,7 +33,7 @@ class MQTTClient{
 	
 	public: 
 		MQTTClient();
-		void publishMessage(char* msg, char* topic);
+		void publishMessage(string msg, string topic);
 		void subscribeToTopic(string topic);
 		~MQTTClient();
 

@@ -7,7 +7,7 @@
 
 #define NODE_ID 0
 int devicesID[] = {0,4,5};
-
+bool isRelayOn = false;
 
 EspMQTTClient *client = nullptr;
 DynamicJsonDocument deviceConfig(1024);
@@ -44,7 +44,7 @@ void setup()
   #endif
   
   client->enableOTA(); // Enable OTA (Over The Air) updates. Password defaults to MQTTPassword. Port is the default OTA port. Can be overridden with enableOTA("password", port).
-  
+ client->enableHTTPWebUpdater();
   //Construct device configuration
   deviceConfig["intent"] = "connectNode";
   deviceConfig["targetNode"] = NODE_ID;
@@ -74,25 +74,14 @@ void onConnectionEstablished()
   serializeJson(deviceConfig,tmp);
   client->enableLastWillMessage("/home/nodes/disconnect", tmp.c_str()); 
 
-
   //Subscribe to the order topic
-  client->subscribe("/home/light", [](const String & payload) {
+  client->subscribe("/home/light/set", [](const String & payload) {
 
-    DynamicJsonDocument doc(1024);
-    deserializeJson(doc, payload);
-
-    const char* intent = doc["intent"];
-    
-    if(strcmp(intent,"setProperty") == 0){
-      
-      const char* property = doc["property"];
-      if(strcmp(property,"onStatus") == 0){
-          
-          int value = doc["value"];
-          digitalWrite(RELAY_PIN,value);
-        
-      }
+    if(payload == "2"){
+      isRelayOn = !isRelayOn;
     }
+
+    digitalWrite(RELAY_PIN,isRelayOn ? HIGH:LOW);
 
     #if DEBUG_BUILD
       Serial.println(payload);

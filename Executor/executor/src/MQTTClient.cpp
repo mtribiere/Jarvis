@@ -34,7 +34,7 @@ MQTTClient::MQTTClient(){
  * @param msg The message
  * @param topic The topic
  */
-void MQTTClient::publishMessage(char* msg, char* topic){
+void MQTTClient::publishMessage(string msg, string topic){
 
     //If not connected
     if(!client->is_connected())
@@ -45,7 +45,7 @@ void MQTTClient::publishMessage(char* msg, char* topic){
         cout << "\nSending message...";
         mqtt::message_ptr pubmsg = mqtt::make_message(topic, msg);
         client->publish(pubmsg, nullptr, listener);
-        cout << "  ...OK" << endl;
+        cout << "[OK]" << endl;
     }
     catch (const mqtt::exception& exc) {
         cerr << exc.what() << endl;
@@ -53,6 +53,11 @@ void MQTTClient::publishMessage(char* msg, char* topic){
 
 }
 
+/**
+ * @brief Subscribe to a topic
+ * 
+ * @param topic 
+ */
 void MQTTClient::subscribeToTopic(string topic){
 
     if(!client->is_connected())

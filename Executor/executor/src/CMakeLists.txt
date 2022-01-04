@@ -5,7 +5,7 @@ file(GLOB SRCS
 
 add_executable(jarvis_executor ${SRCS})
 
-target_link_libraries(jarvis_executor paho-mqttpp3 paho-mqtt3a pthread yaml-cpp)
+target_link_libraries(jarvis_executor paho-mqttpp3 paho-mqtt3a pthread yaml-cpp httpserver)
 
 #Install instruction
 install(TARGETS jarvis_executor DESTINATION bin)

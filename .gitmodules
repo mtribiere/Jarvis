@@ -7,3 +7,6 @@
 [submodule "Executor/yalm-cpp"]
 	path = Executor/yalm-cpp
 	url = https://github.com/jbeder/yaml-cpp
+[submodule "Executor/libhttpserver"]
+	path = Executor/libhttpserver
+	url = https://github.com/etr/libhttpserver

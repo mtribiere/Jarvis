@@ -141,9 +141,9 @@ MQTTClient::~MQTTClient(){
             cout << "Error: There are pending delivery tokens!" << endl;
 
         // Disconnect
-        cout << "\nDisconnecting...";
+        cout << "Disconnecting from MQTT Broker...";
         client->disconnect()->wait();
-        cout << "  ...OK" << endl;
+        cout << "[OK]" << endl;
     }
     catch (const mqtt::exception& exc) {
         cerr << exc.what() << endl;

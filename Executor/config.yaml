@@ -1,0 +1,18 @@
+--- #Example Jarvis config file
+devices:
+
+  device: 
+    realName: "switch1"
+    displayName: "Power Switch 1"
+    lastIP: "192.168.43.124"
+    subDevicesCount: 1
+    availableServices:
+      - "POWER"
+  
+  device: 
+    realName: "switch2"
+    displayName: "Power Switch 2"
+    lastIP: "192.168.43.161"
+    subDevicesCount: 1
+    availableServices:
+      - "POWER"

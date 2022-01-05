@@ -58,6 +58,7 @@ public:
 				pthread_cond_signal(waitList.at(i).receiveSignal);
 			}
 		}
+
 	}
 
 	void on_failure(const mqtt::token& tok) override {
@@ -71,7 +72,6 @@ public:
 	}
 
 	void addTopicToWaitList(string topic,pthread_cond_t *receiveSignal){
-		std::cout << "New wait request for " << topic << std::endl;
 		waitList.push_back((WaitRequest){topic,0,"",receiveSignal});
 	}
 
@@ -93,7 +93,7 @@ public:
 			}
 		}
 
-		return "";
+		return ""; //TODO: Add a request not found (ENUM)
 	}
 
 	void removeRequest(string _topic){

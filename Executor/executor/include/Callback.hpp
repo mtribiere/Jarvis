@@ -10,18 +10,25 @@
 #include <cstring>
 #include <stdio.h>
 #include "mqtt/async_client.h"
-#include "MQTTClient.hpp"
 
 using namespace std;
 
-/////////////////////////////////////////////////////////////////////////////
+typedef struct WaitRequest{
+	string topic = "";
+	bool flag = 0;
+	string response;
+
+	pthread_cond_t *receiveSignal;
+} WaitRequest;
 
 /**
  * A callback class for use with the main MQTT client.
  */
-class callback : public virtual mqtt::callback
+class callback : public virtual mqtt::callback,
+					public virtual mqtt::iaction_listener
 {
 public:
+
 	void connection_lost(const string& cause) override {
 		cout << "\nConnection lost" << endl;
 		if (!cause.empty())
@@ -42,18 +49,17 @@ public:
 		std::cout << "Message arrived" << std::endl;
 		std::cout << "\ttopic: '" << msg->get_topic() << "'" << std::endl;
 		std::cout << "\tpayload: '" << msg->to_string() << "'\n" << std::endl;
+
+		//Check if the topic is in the wait list
+		for(int i = 0;i<waitList.size();i++){
+			if(waitList.at(i).topic ==  msg->get_topic()){
+				waitList.at(i).flag = 1;
+				waitList.at(i).response = msg->to_string();
+				pthread_cond_signal(waitList.at(i).receiveSignal);
+			}
+		}
 	}
-    
-};
 
-/////////////////////////////////////////////////////////////////////////////
-
-/**
- * A base action listener.
- */
-class action_listener : public virtual mqtt::iaction_listener
-{
-protected:
 	void on_failure(const mqtt::token& tok) override {
 		cout << "\tListener failure for token: "
 			<< tok.get_message_id() << endl;
@@ -63,30 +69,46 @@ protected:
 		cout << "\tListener success for token: "
 			<< tok.get_message_id() << endl;
 	}
-};
 
-/////////////////////////////////////////////////////////////////////////////
-
-/**
- * A derived action listener for publish events.
- */
-class delivery_action_listener : public action_listener
-{
-	atomic<bool> done_;
-
-	void on_failure(const mqtt::token& tok) override {
-		action_listener::on_failure(tok);
-		done_ = true;
+	void addTopicToWaitList(string topic,pthread_cond_t *receiveSignal){
+		std::cout << "New wait request for " << topic << std::endl;
+		waitList.push_back((WaitRequest){topic,0,"",receiveSignal});
 	}
 
-	void on_success(const mqtt::token& tok) override {
-		action_listener::on_success(tok);
-		done_ = true;
+	bool getMessageFlag(string _topic){
+		for(int i = 0;i<waitList.size();i++){
+			if(waitList.at(i).topic == _topic){
+				return waitList.at(i).flag;
+			}
+		}
+
+		return false; //TODO: Add a request not found (ENUM)
 	}
 
-public:
-	delivery_action_listener() : done_(false) {}
-	bool is_done() const { return done_; }
+	string getMessageResponse(string _topic){
+		
+		for(int i = 0;i<waitList.size();i++){
+			if(waitList.at(i).topic == _topic){
+				return waitList.at(i).response;
+			}
+		}
+
+		return "";
+	}
+
+	void removeRequest(string _topic){
+
+		for(int i = 0;i<waitList.size();i++){
+			if(waitList.at(i).topic == _topic){
+				waitList.erase(waitList.begin() + i);
+			}
+		}
+
+	}
+
+	vector<WaitRequest> waitList;
+    
 };
+
 
 #endif

@@ -24,6 +24,9 @@ int main(int argc, char* argv[])
 	//Declare client
 	MQTTClient *client = new MQTTClient();
 
+	//Substribe to topic
+	client->subscribeToTopic("stat/+/#");
+
 	#if CONSOLE_BUILD == 0
 
 	webserver ws = create_webserver(8080);

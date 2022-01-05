@@ -11,10 +11,12 @@
 #include <stdio.h>
 #include "mqtt/async_client.h"
 #include "Callback.hpp"
+#include <pthread.h>
+#include <sys/time.h>
 
 using namespace std;
 
-#define NODE_CONNECTION_TOPIC "/home/nodes/connect"
+#define NODE_TELE_TOPIC "tele/#"
 #define CLIENT_ID "Jarvis_Executor"
 #define QOS 1
 
@@ -24,17 +26,16 @@ class MQTTClient{
 	const string DFLT_SERVER_ADDRESS	{ "tcp://localhost:1883" };
 	const string PERSIST_DIR			{ "./persist" };
 
-	const char* LWT_PAYLOAD = "Jarvis_Executor_disconnected";
-
 	const std::chrono::duration<int64_t> TIMEOUT = std::chrono::seconds(10);
 	mqtt::async_client *client;
-	action_listener listener;
 	callback cb;
 	
 	public: 
 		MQTTClient();
 		void publishMessage(string msg, string topic);
 		void subscribeToTopic(string topic);
+		string getInfoFromDevice(string device, string info, string id);
+		
 		~MQTTClient();
 
 

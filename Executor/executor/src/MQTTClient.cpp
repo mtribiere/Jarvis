@@ -5,11 +5,11 @@ MQTTClient::MQTTClient(){
 		cout << "Initializing for server '" << DFLT_SERVER_ADDRESS << "'...";
 		client = new mqtt::async_client(DFLT_SERVER_ADDRESS, CLIENT_ID, PERSIST_DIR);
 
+        
 		client->set_callback(cb);
 
 		auto connOpts = mqtt::connect_options_builder()
 			.clean_session()
-			//.will(mqtt::message(TOPIC, LWT_PAYLOAD, QOS))
 			.finalize();
 
 		cout << "  ...OK" << endl;
@@ -21,7 +21,7 @@ MQTTClient::MQTTClient(){
             conntok->wait();
             
             //Subscribe to important topics
-            this->subscribeToTopic(NODE_CONNECTION_TOPIC);
+            this->subscribeToTopic(NODE_TELE_TOPIC);
 		}
 		catch (const mqtt::exception& exc) {
 			cerr << exc.what() << endl;
@@ -41,10 +41,9 @@ void MQTTClient::publishMessage(string msg, string topic){
         return;
 
     try {
-        // Publish message with listenner
         cout << "\nSending message...";
         mqtt::message_ptr pubmsg = mqtt::make_message(topic, msg);
-        client->publish(pubmsg, nullptr, listener);
+        client->publish(pubmsg, nullptr, cb);
         cout << "[OK]" << endl;
     }
     catch (const mqtt::exception& exc) {
@@ -63,9 +62,76 @@ void MQTTClient::subscribeToTopic(string topic){
     if(!client->is_connected())
         return;
     
-    client->subscribe(topic, QOS, nullptr, listener);
+    client->subscribe(topic, QOS, nullptr, cb);
 }
 
+/**
+ * @brief Get an info from a device
+ * 
+ * @param device The device name
+ * @param info The desired info
+ * @param id The ID of the target on the device
+ * @return string The response of the request, or "" if fail
+ */
+string MQTTClient::getInfoFromDevice(string device, string info, string id){
+
+        //If not connected
+    if(!client->is_connected())
+        return "";
+
+    //Add the message to the wait list
+    string replyTopic = "stat/"+device+"/"+info;
+    pthread_mutex_t mutex;
+    pthread_cond_t receivedSignal;
+
+    pthread_mutex_init(&mutex, NULL);
+    pthread_cond_init(&receivedSignal, NULL);
+
+    cb.addTopicToWaitList(replyTopic,&receivedSignal);
+
+    try {
+        // Publish message with listenner
+        cout << "\nSending message...";
+        mqtt::message_ptr pubmsg = mqtt::make_message("cmnd/"+device+"/"+info, "");
+        mqtt::delivery_token_ptr token = client->publish(pubmsg, nullptr, cb);
+        
+        //If no time out
+        if(token->wait_for(TIMEOUT)){
+            
+            //Prepare to wait
+            struct timespec ts;
+            timespec_get(&ts, TIME_UTC);
+            ts.tv_sec += 1;
+
+            //Wait until response or timeout
+            int rc = 0;
+            while(!cb.getMessageFlag(replyTopic) && rc == 0){
+                rc = pthread_cond_timedwait(&receivedSignal,&mutex,&ts);        
+            }    
+
+            //Get the response
+            string response = cb.getMessageResponse(replyTopic);
+            cb.removeRequest(replyTopic);
+
+            //If error during the request
+            if(rc != 0){
+                cout << "[ERROR]" << endl;
+                return "";
+            }
+            
+            return response;
+
+        }else{ //If broker timeout
+            cout << "[BROKER TIMEOUT]" << endl;
+            return "";
+        }
+    }
+    catch (const mqtt::exception& exc) {
+        cerr << exc.what() << endl;
+    }
+
+    return "";
+}
 
 MQTTClient::~MQTTClient(){
     try{

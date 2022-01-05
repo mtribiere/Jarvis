@@ -77,8 +77,56 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0850842da632b94c426c19f2f2c038ec"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a0850842da632b94c426c19f2f2c038ec">subscribeToTopic</a> (string topic)</td></tr>
 <tr class="memdesc:a0850842da632b94c426c19f2f2c038ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribe to a topic.  <a href="classMQTTClient.html#a0850842da632b94c426c19f2f2c038ec">More...</a><br /></td></tr>
 <tr class="separator:a0850842da632b94c426c19f2f2c038ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a823c6468194311b49bc090d6e7f4296b"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a823c6468194311b49bc090d6e7f4296b">getInfoFromDevice</a> (string device, string info, string id)</td></tr>
+<tr class="memdesc:a823c6468194311b49bc090d6e7f4296b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an info from a device.  <a href="classMQTTClient.html#a823c6468194311b49bc090d6e7f4296b">More...</a><br /></td></tr>
+<tr class="separator:a823c6468194311b49bc090d6e7f4296b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a823c6468194311b49bc090d6e7f4296b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a823c6468194311b49bc090d6e7f4296b">&#9670;&nbsp;</a></span>getInfoFromDevice()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string MQTTClient::getInfoFromDevice </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>device</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>info</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>id</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get an info from a device. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">device</td><td>The device name </td></tr>
+    <tr><td class="paramname">info</td><td>The desired info </td></tr>
+    <tr><td class="paramname">id</td><td>The ID of the target on the device </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string The response of the request, or "" if fail </dd></dl>
+
+</div>
+</div>
 <a id="a74706e90f6b019482a1df9a85d110004"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a74706e90f6b019482a1df9a85d110004">&#9670;&nbsp;</a></span>publishMessage()</h2>
 

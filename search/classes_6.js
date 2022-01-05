@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['node_19',['Node',['../classNode.html',1,'']]]
+  ['waitrequest_19',['WaitRequest',['../structWaitRequest.html',1,'']]]
 ];

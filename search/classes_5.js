@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mqttclient_18',['MQTTClient',['../classMQTTClient.html',1,'']]]
+  ['setapihandler_18',['SetApiHandler',['../classSetApiHandler.html',1,'']]]
 ];

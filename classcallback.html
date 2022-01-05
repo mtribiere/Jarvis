@@ -63,6 +63,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classcallback-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">callback Class Reference</div>  </div>
@@ -75,8 +76,9 @@ Inheritance diagram for callback:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcallback__inherit__graph.png" border="0" usemap="#callback_inherit__map" alt="Inheritance graph"/></div>
 <map name="callback_inherit__map" id="callback_inherit__map">
-<area shape="rect" title=" " alt="" coords="25,80,101,107"/>
+<area shape="rect" title=" " alt="" coords="106,80,182,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,120,32"/>
+<area shape="rect" title=" " alt="" coords="145,5,306,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
@@ -84,8 +86,9 @@ Collaboration diagram for callback:</div>
 <div class="dyncontent">
 <div class="center"><img src="classcallback__coll__graph.png" border="0" usemap="#callback_coll__map" alt="Collaboration graph"/></div>
 <map name="callback_coll__map" id="callback_coll__map">
-<area shape="rect" title=" " alt="" coords="25,80,101,107"/>
+<area shape="rect" title=" " alt="" coords="106,80,182,107"/>
 <area shape="rect" title=" " alt="" coords="5,5,120,32"/>
+<area shape="rect" title=" " alt="" coords="145,5,306,32"/>
 </map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -103,6 +106,30 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>connected</b> (const 
 <tr class="memitem:abb5432ae35450672ab1f582d34d80797"><td class="memItemLeft" align="right" valign="top"><a id="abb5432ae35450672ab1f582d34d80797"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>message_arrived</b> (mqtt::const_message_ptr msg) override</td></tr>
 <tr class="separator:abb5432ae35450672ab1f582d34d80797"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1a721c59976ca81630c8a7ea687357a"><td class="memItemLeft" align="right" valign="top"><a id="aa1a721c59976ca81630c8a7ea687357a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_failure</b> (const mqtt::token &amp;tok) override</td></tr>
+<tr class="separator:aa1a721c59976ca81630c8a7ea687357a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6db87aa5c52e1c51bdd76a171d76b59f"><td class="memItemLeft" align="right" valign="top"><a id="a6db87aa5c52e1c51bdd76a171d76b59f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>on_success</b> (const mqtt::token &amp;tok) override</td></tr>
+<tr class="separator:a6db87aa5c52e1c51bdd76a171d76b59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39125e0574963097cced95d400c25343"><td class="memItemLeft" align="right" valign="top"><a id="a39125e0574963097cced95d400c25343"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addTopicToWaitList</b> (string topic, pthread_cond_t *receiveSignal)</td></tr>
+<tr class="separator:a39125e0574963097cced95d400c25343"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeff66ed397b5e79313afc6161380d085"><td class="memItemLeft" align="right" valign="top"><a id="aeff66ed397b5e79313afc6161380d085"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>getMessageFlag</b> (string _topic)</td></tr>
+<tr class="separator:aeff66ed397b5e79313afc6161380d085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d69037d58422998462ecbcbf10555e0"><td class="memItemLeft" align="right" valign="top"><a id="a4d69037d58422998462ecbcbf10555e0"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>getMessageResponse</b> (string _topic)</td></tr>
+<tr class="separator:a4d69037d58422998462ecbcbf10555e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9528d3a3a5351dca7683ac4dd25ded9"><td class="memItemLeft" align="right" valign="top"><a id="af9528d3a3a5351dca7683ac4dd25ded9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>removeRequest</b> (string _topic)</td></tr>
+<tr class="separator:af9528d3a3a5351dca7683ac4dd25ded9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a19ebb332cbf82ea2f26a6a0da434015c"><td class="memItemLeft" align="right" valign="top"><a id="a19ebb332cbf82ea2f26a6a0da434015c"></a>
+vector&lt; <a class="el" href="structWaitRequest.html">WaitRequest</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>waitList</b></td></tr>
+<tr class="separator:a19ebb332cbf82ea2f26a6a0da434015c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A callback class for use with the main MQTT client. </p>

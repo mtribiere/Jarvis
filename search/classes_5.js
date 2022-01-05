@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setapihandler_18',['SetApiHandler',['../classSetApiHandler.html',1,'']]]
+  ['waitrequest_16',['WaitRequest',['../structWaitRequest.html',1,'']]]
 ];

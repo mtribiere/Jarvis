@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['getinfofromdevice_23',['getInfoFromDevice',['../classMQTTClient.html#a823c6468194311b49bc090d6e7f4296b',1,'MQTTClient']]]
+  ['subscribetotopic_19',['subscribeToTopic',['../classMQTTClient.html#a0850842da632b94c426c19f2f2c038ec',1,'MQTTClient']]]
 ];

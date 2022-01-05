@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['macaron_6',['macaron',['../namespacemacaron.html',1,'']]],
-  ['mqttclient_7',['MQTTClient',['../classMQTTClient.html',1,'']]]
+  ['setapihandler_7',['SetApiHandler',['../classSetApiHandler.html',1,'']]],
+  ['subscribetotopic_8',['subscribeToTopic',['../classMQTTClient.html#a0850842da632b94c426c19f2f2c038ec',1,'MQTTClient']]]
 ];

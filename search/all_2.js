@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['decode_2',['Decode',['../classmacaron_1_1Base64.html#a9ce105b425c191ca90defea6cfc70626',1,'macaron::Base64']]]
+  ['getapihandler_3',['GetApiHandler',['../classGetApiHandler.html',1,'']]],
+  ['getinfofromdevice_4',['getInfoFromDevice',['../classMQTTClient.html#a823c6468194311b49bc090d6e7f4296b',1,'MQTTClient']]]
 ];

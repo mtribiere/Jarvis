@@ -1,21 +1,24 @@
 var indexSectionsWithContent =
 {
-  0: "cdgmpsw~",
+  0: "cdglmopsw~",
   1: "cdgmsw",
-  2: "gmps~"
+  2: "d",
+  3: "glmops~"
 };
 
 var indexSectionNames =
 {
   0: "all",
   1: "classes",
-  2: "functions"
+  2: "namespaces",
+  3: "functions"
 };
 
 var indexSectionLabels =
 {
   0: "All",
   1: "Classes",
-  2: "Functions"
+  2: "Namespaces",
+  3: "Functions"
 };
 

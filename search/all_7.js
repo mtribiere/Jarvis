@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['_7emqttclient_10',['~MQTTClient',['../classMQTTClient.html#a5ec1c4e5bc659ef561a6cc2497469f5b',1,'MQTTClient']]]
+  ['setapihandler_9',['SetApiHandler',['../classSetApiHandler.html',1,'']]],
+  ['subscribetotopic_10',['subscribeToTopic',['../classMQTTClient.html#a0850842da632b94c426c19f2f2c038ec',1,'MQTTClient']]]
 ];

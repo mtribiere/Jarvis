@@ -112,9 +112,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>on_failure</b> (const
 <tr class="memitem:a6db87aa5c52e1c51bdd76a171d76b59f"><td class="memItemLeft" align="right" valign="top"><a id="a6db87aa5c52e1c51bdd76a171d76b59f"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>on_success</b> (const mqtt::token &amp;tok) override</td></tr>
 <tr class="separator:a6db87aa5c52e1c51bdd76a171d76b59f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a39125e0574963097cced95d400c25343"><td class="memItemLeft" align="right" valign="top"><a id="a39125e0574963097cced95d400c25343"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>addTopicToWaitList</b> (string topic, pthread_cond_t *receiveSignal)</td></tr>
-<tr class="separator:a39125e0574963097cced95d400c25343"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfc2adbe9f16af250906a41b83567ac2"><td class="memItemLeft" align="right" valign="top"><a id="abfc2adbe9f16af250906a41b83567ac2"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>addTopicToWaitList</b> (string topic, pthread_mutex_t *mutex, pthread_cond_t *receiveSignal)</td></tr>
+<tr class="separator:abfc2adbe9f16af250906a41b83567ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeff66ed397b5e79313afc6161380d085"><td class="memItemLeft" align="right" valign="top"><a id="aeff66ed397b5e79313afc6161380d085"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>getMessageFlag</b> (string _topic)</td></tr>
 <tr class="separator:aeff66ed397b5e79313afc6161380d085"><td class="memSeparator" colspan="2">&#160;</td></tr>

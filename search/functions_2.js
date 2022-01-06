@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['subscribetotopic_19',['subscribeToTopic',['../classMQTTClient.html#a0850842da632b94c426c19f2f2c038ec',1,'MQTTClient']]]
+  ['publishmessage_20',['publishMessage',['../classMQTTClient.html#a74706e90f6b019482a1df9a85d110004',1,'MQTTClient']]]
 ];

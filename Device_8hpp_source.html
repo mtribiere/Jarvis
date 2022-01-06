@@ -78,82 +78,84 @@ $(function() {
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>Device{</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="structDevice_1_1Device.html">   12</a></span>&#160;    <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="structDevice_1_1Device.html">Device</a>{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;yaml-cpp/yaml.h&quot;</span> </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using namespace </span>std;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        std::string lastIP;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        std::string realName;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        std::string displayName;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordtype">int</span> subDevicesCount;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        std::vector&lt;string&gt; availableServices;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    } <a class="code" href="structDevice_1_1Device.html">Device</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <a class="code" href="structDevice_1_1Device.html">Device</a> <span class="keyword">const</span>&amp; arg)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;-&gt; Config for device: &quot;</span> &lt;&lt; arg.realName &lt;&lt; endl;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;   * Display Name: &quot;</span> &lt;&lt; arg.displayName &lt;&lt; endl;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;   * Last known IP: &quot;</span> &lt;&lt; arg.lastIP &lt;&lt; endl;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;   * Number of sub-devices: &quot;</span> &lt;&lt; arg.subDevicesCount &lt;&lt; endl;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;   * Services: &quot;</span> &lt;&lt;endl;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0;i&lt;arg.availableServices.size();i++)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;       - &quot;</span> &lt;&lt; arg.availableServices.at(i) &lt;&lt; endl; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">return</span> os;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>Device{</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="structDevice_1_1Device.html">   15</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structDevice_1_1Device.html">Device</a>{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        std::string lastIP;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        std::string realName;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        std::string displayName;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordtype">int</span> subDevicesCount;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        std::vector&lt;string&gt; availableServices;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    };</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">inline</span> std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, <a class="code" href="structDevice_1_1Device.html">Device</a> <span class="keyword">const</span>&amp; arg)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;-&gt; Config for device: &quot;</span> &lt;&lt; arg.realName &lt;&lt; endl;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;   * Display Name: &quot;</span> &lt;&lt; arg.displayName &lt;&lt; endl;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;   * Last known IP: &quot;</span> &lt;&lt; arg.lastIP &lt;&lt; endl;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;   * Number of sub-devices: &quot;</span> &lt;&lt; arg.subDevicesCount &lt;&lt; endl;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        cout &lt;&lt; <span class="stringliteral">&quot;   * Services: &quot;</span> &lt;&lt;endl;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0;i&lt;arg.availableServices.size();i++)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;       - &quot;</span> &lt;&lt; arg.availableServices.at(i) &lt;&lt; endl; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">bool</span> LoadConfigFile(<span class="keywordtype">char</span> *configPath, std::vector&lt;Device&gt;&amp; devices){</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="comment">//Load config file</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        YAML::Node config;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">try</span>{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            config = YAML::LoadFile(configPath);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">if</span>(config.IsNull()){</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;Unable to load config file&quot;</span> &lt;&lt; endl;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                exit(EXIT_FAILURE);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        }<span class="keywordflow">catch</span>(YAML::BadFile e){</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;Unable to load config file: &quot;</span> &lt;&lt; e.msg &lt;&lt; endl;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            exit(EXIT_FAILURE);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="comment">//Load the nodes</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">for</span>(YAML::const_iterator it = config[<span class="stringliteral">&quot;devices&quot;</span>].begin(); it != config[<span class="stringliteral">&quot;devices&quot;</span>].end();++it)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            devices.push_back(it-&gt;second.as&lt;Device&gt;());</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">namespace </span>YAML {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structYAML_1_1convert_3_01Device_1_1Device_01_4.html">   62</a></span>&#160;<span class="keyword">struct </span>convert&lt;Device::Device&gt; {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> decode(<span class="keyword">const</span> Node&amp; node, <a class="code" href="structDevice_1_1Device.html">Device::Device</a>&amp; rhs) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span>(node.IsNull()) {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    rhs.realName = node[<span class="stringliteral">&quot;realName&quot;</span>].as&lt;<span class="keywordtype">string</span>&gt;();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    rhs.displayName = node[<span class="stringliteral">&quot;displayName&quot;</span>].as&lt;<span class="keywordtype">string</span>&gt;();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    rhs.lastIP = node[<span class="stringliteral">&quot;lastIP&quot;</span>].as&lt;<span class="keywordtype">string</span>&gt;();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    rhs.subDevicesCount = node[<span class="stringliteral">&quot;subDevicesCount&quot;</span>].as&lt;<span class="keywordtype">int</span>&gt;();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0;i&lt;node[<span class="stringliteral">&quot;availableServices&quot;</span>].size();i++)</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        rhs.availableServices.push_back(node[<span class="stringliteral">&quot;availableServices&quot;</span>][i].as&lt;<span class="keywordtype">string</span>&gt;());</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span> os;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">bool</span> LoadConfigFile(<span class="keywordtype">char</span> *configPath, std::vector&lt;Device&gt;&amp; devices){</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="comment">//Load config file</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        YAML::Node config;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">try</span>{</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            config = YAML::LoadFile(configPath);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordflow">if</span>(config.IsNull()){</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                cout &lt;&lt; <span class="stringliteral">&quot;Unable to load config file&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                exit(EXIT_FAILURE);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }<span class="keywordflow">catch</span>(YAML::BadFile e){</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            cout &lt;&lt; <span class="stringliteral">&quot;Unable to load config file: &quot;</span> &lt;&lt; e.msg &lt;&lt; endl;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            exit(EXIT_FAILURE);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <span class="comment">//Load the nodes</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">for</span>(YAML::const_iterator it = config[<span class="stringliteral">&quot;devices&quot;</span>].begin(); it != config[<span class="stringliteral">&quot;devices&quot;</span>].end();++it)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            devices.push_back(it-&gt;second.as&lt;Device&gt;());</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">namespace </span>YAML {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="structYAML_1_1convert_3_01Device_1_1Device_01_4.html">   65</a></span>&#160;<span class="keyword">struct </span>convert&lt;Device::Device&gt; {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> decode(<span class="keyword">const</span> Node&amp; node, <a class="code" href="structDevice_1_1Device.html">Device::Device</a>&amp; rhs) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">if</span>(node.IsNull()) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    rhs.realName = node[<span class="stringliteral">&quot;realName&quot;</span>].as&lt;<span class="keywordtype">string</span>&gt;();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    rhs.displayName = node[<span class="stringliteral">&quot;displayName&quot;</span>].as&lt;<span class="keywordtype">string</span>&gt;();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    rhs.lastIP = node[<span class="stringliteral">&quot;lastIP&quot;</span>].as&lt;<span class="keywordtype">string</span>&gt;();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    rhs.subDevicesCount = node[<span class="stringliteral">&quot;subDevicesCount&quot;</span>].as&lt;<span class="keywordtype">int</span>&gt;();</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;};</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i = 0;i&lt;node[<span class="stringliteral">&quot;availableServices&quot;</span>].size();i++)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        rhs.availableServices.push_back(node[<span class="stringliteral">&quot;availableServices&quot;</span>][i].as&lt;<span class="keywordtype">string</span>&gt;());</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;};</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="astructDevice_1_1Device_html"><div class="ttname"><a href="structDevice_1_1Device.html">Device::Device</a></div><div class="ttdef"><b>Definition:</b> Device.hpp:12</div></div>
+<div class="ttc" id="astructDevice_1_1Device_html"><div class="ttname"><a href="structDevice_1_1Device.html">Device::Device</a></div><div class="ttdef"><b>Definition:</b> Device.hpp:15</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

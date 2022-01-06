@@ -8,18 +8,17 @@
 #include <stdio.h>
 #include <signal.h>
 #include <httpserver.hpp>
-#include "yaml-cpp/yaml.h"
 #include "mqtt/async_client.h"
 
-#include "../include/MQTTClient.hpp"
-#include "../include/API.hpp"
 #include "../include/Device.hpp"
+#include "../include/API.hpp"
 
 using namespace httpserver;
 
 #define ENABLE_CONSOLE 0
 
 /////////////////////////////////////////////////////////////////////////////
+
 
 bool exitFlag = 0;
 void signal_callback_handler(int signum);
@@ -47,7 +46,8 @@ int main(int argc, char* argv[])
 	}	
 
 	//Declare client
-	MQTTClient *client = new MQTTClient();
+	MQTTClient *client = new MQTTClient(devices);
+
 
 	//Substribe to topic
 	client->subscribeToTopic("stat/+/#");

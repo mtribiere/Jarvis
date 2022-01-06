@@ -7,9 +7,12 @@
 #include <string>
 #include <vector>
 #include <stdio.h>
+#include "yaml-cpp/yaml.h" 
+
+using namespace std;
 
 namespace Device{
-    typedef struct Device{
+    struct Device{
 
         std::string lastIP;
         std::string realName;
@@ -17,9 +20,9 @@ namespace Device{
         int subDevicesCount;
         std::vector<string> availableServices;
 
-    } Device;
+    };
 
-    std::ostream& operator<<(std::ostream& os, Device const& arg)
+    inline std::ostream& operator<<(std::ostream& os, Device const& arg)
     {
         cout << "-> Config for device: " << arg.realName << endl;
         cout << "	* Display Name: " << arg.displayName << endl;
@@ -32,7 +35,7 @@ namespace Device{
         return os;
     }
 
-    bool LoadConfigFile(char *configPath, std::vector<Device>& devices){
+    inline bool LoadConfigFile(char *configPath, std::vector<Device>& devices){
 
         //Load config file
         YAML::Node config;
@@ -79,5 +82,4 @@ struct convert<Device::Device> {
   }
 };
 }
-
 #endif

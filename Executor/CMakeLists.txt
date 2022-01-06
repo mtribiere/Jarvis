@@ -17,6 +17,7 @@ find_package(Threads REQUIRED)
 
 #Set install dir
 set(CMAKE_INSTALL_PREFIX .)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 #Compile lib and code
 add_subdirectory(yalm-cpp)

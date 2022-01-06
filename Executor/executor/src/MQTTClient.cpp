@@ -1,6 +1,11 @@
 #include "MQTTClient.hpp"
 
-MQTTClient::MQTTClient(){
+/**
+ * @brief Construct a new MQTTClient::MQTTClient object
+ * 
+ * @param _devices The known devices
+ */
+MQTTClient::MQTTClient(std::vector<Device::Device> _devices){
 
 		cout << "Initializing for server '" << DFLT_SERVER_ADDRESS << "'...";
 		client = new mqtt::async_client(DFLT_SERVER_ADDRESS, CLIENT_ID, PERSIST_DIR);
@@ -12,16 +17,20 @@ MQTTClient::MQTTClient(){
 			.clean_session()
 			.finalize();
 
-		cout << "  ...OK" << endl;
+		cout << "[OK]" << endl;
 
 		try{
 			// Connect
 			cout << "\nConnecting...";
 			mqtt::token_ptr conntok = client->connect(connOpts);
             conntok->wait();
-            
-            //Subscribe to important topics
+            cout << "[OK]" << endl;
+
+            //Subscribe to telemetry topics
             this->subscribeToTopic(NODE_TELE_TOPIC);
+
+            //TODO: Subscibe to device topics
+
 		}
 		catch (const mqtt::exception& exc) {
 			cerr << exc.what() << endl;
@@ -133,6 +142,10 @@ string MQTTClient::getInfoFromDevice(string device, string info, string id){
     return "";
 }
 
+/**
+ * @brief Destroy the MQTTClient::MQTTClient object
+ * 
+ */
 MQTTClient::~MQTTClient(){
     try{
         //  Check that there are no pending tokens

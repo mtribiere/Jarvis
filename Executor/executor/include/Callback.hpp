@@ -18,6 +18,7 @@ typedef struct WaitRequest{
 	bool flag = 0;
 	string response;
 
+	pthread_mutex_t *mutex;
 	pthread_cond_t *receiveSignal;
 } WaitRequest;
 
@@ -53,26 +54,34 @@ public:
 		//Check if the topic is in the wait list
 		for(int i = 0;i<waitList.size();i++){
 			if(waitList.at(i).topic ==  msg->get_topic()){
+				
+				//Wait for the lock
+				pthread_mutex_lock(waitList.at(i).mutex);
+
+				//Fill up the response
 				waitList.at(i).flag = 1;
 				waitList.at(i).response = msg->to_string();
 				pthread_cond_signal(waitList.at(i).receiveSignal);
+
+				//Free the lock
+				pthread_mutex_unlock(waitList.at(i).mutex);
 			}
 		}
 
 	}
 
 	void on_failure(const mqtt::token& tok) override {
-		cout << "\tListener failure for token: "
+		cout << "Listener failure for token: "
 			<< tok.get_message_id() << endl;
 	}
 
 	void on_success(const mqtt::token& tok) override {
-		cout << "\tListener success for token: "
+		cout << "Listener success for token: "
 			<< tok.get_message_id() << endl;
 	}
 
-	void addTopicToWaitList(string topic,pthread_cond_t *receiveSignal){
-		waitList.push_back((WaitRequest){topic,0,"",receiveSignal});
+	void addTopicToWaitList(string topic,pthread_mutex_t *mutex ,pthread_cond_t *receiveSignal){
+		waitList.push_back((WaitRequest){topic,0,"",mutex ,receiveSignal});
 	}
 
 	bool getMessageFlag(string _topic){
@@ -82,7 +91,8 @@ public:
 			}
 		}
 
-		return false; //TODO: Add a request not found (ENUM)
+		cout << "Warning: A none registered request as been pulled" << endl;
+		return false;
 	}
 
 	string getMessageResponse(string _topic){
@@ -93,7 +103,8 @@ public:
 			}
 		}
 
-		return ""; //TODO: Add a request not found (ENUM)
+		cout << "Warning: A none registered request as been pulled" << endl;
+		return "";
 	}
 
 	void removeRequest(string _topic){

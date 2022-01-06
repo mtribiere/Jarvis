@@ -11,7 +11,16 @@
 
 using namespace std;
 
+/**
+ * @brief Contains everything to deal with devices
+ * 
+ */
 namespace Device{
+
+    /**
+     * @brief The description of a device
+     * 
+     */
     struct Device{
 
         std::string lastIP;
@@ -22,19 +31,34 @@ namespace Device{
 
     };
 
+    /**
+     * @brief Overlaod the operator<< to display a device in a fancy manner
+     * 
+     * @param os The desired output stream
+     * @param arg The node to print
+     * @return std::ostream& The generated output stream
+     */
     inline std::ostream& operator<<(std::ostream& os, Device const& arg)
     {
-        cout << "-> Config for device: " << arg.realName << endl;
-        cout << "	* Display Name: " << arg.displayName << endl;
-        cout << "	* Last known IP: " << arg.lastIP << endl;
-        cout << "	* Number of sub-devices: " << arg.subDevicesCount << endl;
-        cout << "	* Services: " <<endl;
+        os << "-> Config for device: " << arg.realName << endl;
+        os << "	* Display Name: " << arg.displayName << endl;
+        os << "	* Last known IP: " << arg.lastIP << endl;
+        os << "	* Number of sub-devices: " << arg.subDevicesCount << endl;
+        os << "	* Services: " <<endl;
         for(int i = 0;i<arg.availableServices.size();i++)
-            cout << "		- " << arg.availableServices.at(i) << endl; 
+            os << "		- " << arg.availableServices.at(i) << endl; 
 
         return os;
     }
 
+    /**
+     * @brief Load devices from a config file
+     * 
+     * @param configPath The path of the config file
+     * @param devices The destination Vector of loaded device
+     * @return true The loading was successfull
+     * @return false The loading failed
+     */
     inline bool LoadConfigFile(char *configPath, std::vector<Device>& devices){
 
         //Load config file
@@ -58,6 +82,13 @@ namespace Device{
         
         return true;
     }
+
+    enum REQUEST_RESPONSE{
+        OK,
+        TIMED_OUT,
+        DEVICE_UNKNOWN,
+        INTERNAL_ERROR
+    };
 }
 
 namespace YAML {

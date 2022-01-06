@@ -18,7 +18,6 @@
 
 using namespace std;
 
-#define NODE_TELE_TOPIC "tele/#"
 #define CLIENT_ID "Jarvis_Executor"
 #define QOS 1
 
@@ -38,7 +37,8 @@ class MQTTClient{
 		MQTTClient(std::vector<Device::Device> _devices);
 		void publishMessage(string msg, string topic);
 		void subscribeToTopic(string topic);
-		string getInfoFromDevice(string device, string info, string id);
+		void subscribeToDeviceTopic(Device::Device device);
+		Device::REQUEST_RESPONSE getInfoFromDevice(string device, string info, string id, string& response);
 		
 		~MQTTClient();
 

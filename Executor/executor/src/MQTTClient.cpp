@@ -26,15 +26,24 @@ MQTTClient::MQTTClient(std::vector<Device::Device> _devices){
             conntok->wait();
             cout << "[OK]" << endl;
 
-            //Subscribe to telemetry topics
-            this->subscribeToTopic(NODE_TELE_TOPIC);
+            //Set device list
+            this->devices = _devices;
 
-            //TODO: Subscibe to device topics
+            //Subscibe to device topics
+            for(int i = 0;i<devices.size();i++)
+                subscribeToDeviceTopic(devices[i]);
+            
 
 		}
 		catch (const mqtt::exception& exc) {
 			cerr << exc.what() << endl;
 		}
+}
+
+void MQTTClient::subscribeToDeviceTopic(Device::Device device){
+    this->subscribeToTopic("stat/"+device.realName+"/#");
+    this->subscribeToTopic("tele/"+device.realName+"/#");
+
 }
 
 /**
@@ -80,13 +89,14 @@ void MQTTClient::subscribeToTopic(string topic){
  * @param device The device name
  * @param info The desired info
  * @param id The ID of the target on the device
- * @return string The response of the request, or "" if fail
+ * @param response The response of the request. "" if error.
+ * @return Device::REQUEST_RESPONSE The response code of the request
  */
-string MQTTClient::getInfoFromDevice(string device, string info, string id){
+Device::REQUEST_RESPONSE MQTTClient::getInfoFromDevice(string device, string info, string id, string& response){
 
         //If not connected
     if(!client->is_connected())
-        return "";
+        return Device::REQUEST_RESPONSE::INTERNAL_ERROR;
 
     //Add the message to the wait list
     string replyTopic = "stat/"+device+"/"+info;
@@ -96,7 +106,10 @@ string MQTTClient::getInfoFromDevice(string device, string info, string id){
     pthread_mutex_init(&mutex, NULL);
     pthread_cond_init(&receivedSignal, NULL);
 
-    cb.addTopicToWaitList(replyTopic,&receivedSignal);
+    //Get the lock and the reauest to the list
+    pthread_mutex_lock(&mutex);
+    cb.addTopicToWaitList(replyTopic,&mutex,&receivedSignal);
+
 
     try {
         // Publish message with listenner
@@ -116,30 +129,36 @@ string MQTTClient::getInfoFromDevice(string device, string info, string id){
             int rc = 0;
             while(!cb.getMessageFlag(replyTopic) && rc == 0){
                 rc = pthread_cond_timedwait(&receivedSignal,&mutex,&ts);        
-            }    
+            }   
 
             //Get the response
-            string response = cb.getMessageResponse(replyTopic);
+            string _response = cb.getMessageResponse(replyTopic);
             cb.removeRequest(replyTopic);
 
             //If error during the request
             if(rc != 0){
-                cout << "[ERROR]" << endl;
-                return "";
+                cout << "[DEVICE TIMEOUT]" << endl;
+                response = "";
+                return Device::REQUEST_RESPONSE::TIMED_OUT;
             }
             
-            return response;
+            response = _response;
+            return Device::REQUEST_RESPONSE::OK;
 
         }else{ //If broker timeout
             cout << "[BROKER TIMEOUT]" << endl;
-            return "";
+            response = "";
+            return Device::REQUEST_RESPONSE::TIMED_OUT;
         }
     }
     catch (const mqtt::exception& exc) {
         cerr << exc.what() << endl;
     }
 
-    return "";
+    cout << "[INTERNAL ERROR]" << endl;
+    response = "";
+
+    return Device::REQUEST_RESPONSE::INTERNAL_ERROR;
 }
 
 /**

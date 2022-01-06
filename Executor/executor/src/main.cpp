@@ -48,10 +48,7 @@ int main(int argc, char* argv[])
 	//Declare client
 	MQTTClient *client = new MQTTClient(devices);
 
-
-	//Substribe to topic
-	client->subscribeToTopic("stat/+/#");
-
+	//Create API
 	webserver ws = create_webserver(8080);
     SetApiHandler setHandler(client);
 	GetApiHandler getHandler(client);

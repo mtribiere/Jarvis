@@ -1,4 +1,5 @@
 include_directories(${Jarvis_executor_SOURCE_DIR}/executor/include/)
+set (CMAKE_CXX_STANDARD 14)
 
 file(GLOB SRCS
     "${Jarvis_executor_SOURCE_DIR}/executor/src/*.cpp")

@@ -16,6 +16,25 @@ using namespace std;
  * 
  */
 namespace Device{
+    /**
+     * @brief Response code for a request
+     * 
+     */
+    enum REQUEST_RESPONSE{
+        OK,
+        TIMED_OUT,
+        DEVICE_UNKNOWN,
+        INTERNAL_ERROR
+    };
+
+    /**
+     * @brief State of a device
+     * 
+     */
+    enum DEVICE_STATE{
+        ONLINE,
+        OFFLINE
+    };
 
     /**
      * @brief The description of a device
@@ -27,11 +46,14 @@ namespace Device{
         std::string realName;
         std::string displayName;
         int subDevicesCount;
-        std::vector<string> availableServices;
 
+        DEVICE_STATE currentState;
+
+        std::vector<string> availableServices;
+        std::vector<string> currentServiceStatus;
     };
 
-    /**
+        /**
      * @brief Overlaod the operator<< to display a device in a fancy manner
      * 
      * @param os The desired output stream
@@ -82,13 +104,6 @@ namespace Device{
         
         return true;
     }
-
-    enum REQUEST_RESPONSE{
-        OK,
-        TIMED_OUT,
-        DEVICE_UNKNOWN,
-        INTERNAL_ERROR
-    };
 }
 
 namespace YAML {

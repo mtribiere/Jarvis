@@ -54,3 +54,22 @@ const std::shared_ptr<http_response> SetApiHandler::render_POST(const http_reque
     return rep;
 
 }
+
+
+const std::shared_ptr<http_response> GPApiHandler::render(const http_request& req) {
+
+    //Get the URI
+    string uri = req.get_path();
+    string reponse = "";
+
+    if(uri == "/list"){
+        reponse = "{DEVICE_LIST}";
+    }
+
+    //Send response
+    std::shared_ptr<http_response> rep(new string_response(reponse,200));
+    rep->with_header("Access-Control-Allow-Origin","*");
+    
+    return rep;
+
+}

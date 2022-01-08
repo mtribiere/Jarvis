@@ -10,11 +10,13 @@
 #include <cstring>
 #include <stdio.h>
 #include "mqtt/async_client.h"
-#include "Callback.hpp"
 #include <pthread.h>
 #include <sys/time.h>
+#include <thread> 
+#include <future>
 
 #include "../include/Device.hpp"
+#include "Callback.hpp"
 
 using namespace std;
 
@@ -28,18 +30,26 @@ class MQTTClient{
 		const string PERSIST_DIR			{ "./persist" };
 
 		const std::chrono::duration<int64_t> TIMEOUT = std::chrono::seconds(10);
-		mqtt::async_client *client;
-		callback cb;
+		mqtt::async_client *client = nullptr;
+		callback *cb;
 
-		std::vector<Device::Device> devices;
+		std::vector<Device::Device> *devices = nullptr;
+
+		bool *threadExitFlag = nullptr;
+		std::thread *messageConsumerThread = nullptr;
+		pthread_cond_t *newMessageSignal = nullptr;
+		pthread_mutex_t *messageConsumerMutex = nullptr;
+
+
 	
 	public: 
-		MQTTClient(std::vector<Device::Device> _devices);
+		MQTTClient(std::vector<Device::Device> * _devices);
 		void publishMessage(string msg, string topic);
-		void subscribeToTopic(string topic);
+		void subscribeToTopic(string topic); 
 		void subscribeToDeviceTopic(Device::Device device);
 		Device::REQUEST_RESPONSE getInfoFromDevice(string device, string info, string id, string& response);
-		
+		static void messageConsumerFunc(bool *threadExitFlag, std::vector<Device::Device> *devices, callback *cb, pthread_mutex_t* messageConsumerMutex,pthread_cond_t* newMessageSignal);
+
 		~MQTTClient();
 
 

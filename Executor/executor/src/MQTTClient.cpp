@@ -5,13 +5,16 @@
  * 
  * @param _devices The known devices
  */
-MQTTClient::MQTTClient(std::vector<Device::Device> _devices){
+MQTTClient::MQTTClient(std::vector<Device::Device> *_devices){
 
-		cout << "Initializing for server '" << DFLT_SERVER_ADDRESS << "'...";
+        //Create the callbak structure
+		cb = new callback();
+
+        //Create the Async client
+        cout << "Initializing for server '" << DFLT_SERVER_ADDRESS << "'...";
 		client = new mqtt::async_client(DFLT_SERVER_ADDRESS, CLIENT_ID, PERSIST_DIR);
-
         
-		client->set_callback(cb);
+		client->set_callback(*cb);
 
 		auto connOpts = mqtt::connect_options_builder()
 			.clean_session()
@@ -30,14 +33,23 @@ MQTTClient::MQTTClient(std::vector<Device::Device> _devices){
             this->devices = _devices;
 
             //Subscibe to device topics
-            for(int i = 0;i<devices.size();i++)
-                subscribeToDeviceTopic(devices[i]);
+            for(int i = 0;i<(*devices).size();i++)
+                subscribeToDeviceTopic((*devices)[i]);
             
-
 		}
 		catch (const mqtt::exception& exc) {
 			cerr << exc.what() << endl;
 		}
+
+        //Spawm the consumer thread
+        newMessageSignal = new pthread_cond_t();
+        messageConsumerMutex = new pthread_mutex_t();
+
+        pthread_mutex_init(messageConsumerMutex, NULL);
+        pthread_cond_init(newMessageSignal, NULL);
+
+        threadExitFlag = new bool(false);
+        messageConsumerThread = new std::thread(&messageConsumerFunc, threadExitFlag,devices,cb,messageConsumerMutex,newMessageSignal);
 }
 
 void MQTTClient::subscribeToDeviceTopic(Device::Device device){
@@ -61,7 +73,7 @@ void MQTTClient::publishMessage(string msg, string topic){
     try {
         cout << "\nSending message...";
         mqtt::message_ptr pubmsg = mqtt::make_message(topic, msg);
-        client->publish(pubmsg, nullptr, cb);
+        client->publish(pubmsg, nullptr, *cb);
         cout << "[OK]" << endl;
     }
     catch (const mqtt::exception& exc) {
@@ -80,7 +92,7 @@ void MQTTClient::subscribeToTopic(string topic){
     if(!client->is_connected())
         return;
     
-    client->subscribe(topic, QOS, nullptr, cb);
+    client->subscribe(topic, QOS, nullptr, *cb);
 }
 
 /**
@@ -94,9 +106,11 @@ void MQTTClient::subscribeToTopic(string topic){
  */
 Device::REQUEST_RESPONSE MQTTClient::getInfoFromDevice(string device, string info, string id, string& response){
 
-        //If not connected
+    //If not connected
     if(!client->is_connected())
         return Device::REQUEST_RESPONSE::INTERNAL_ERROR;
+
+    ///////TODO: Add return if device is offline
 
     //Add the message to the wait list
     string replyTopic = "stat/"+device+"/"+info;
@@ -108,14 +122,14 @@ Device::REQUEST_RESPONSE MQTTClient::getInfoFromDevice(string device, string inf
 
     //Get the lock and the reauest to the list
     pthread_mutex_lock(&mutex);
-    cb.addTopicToWaitList(replyTopic,&mutex,&receivedSignal);
+    cb->addTopicToWaitList(replyTopic,&mutex,&receivedSignal);
 
 
     try {
         // Publish message with listenner
         cout << "\nSending message...";
         mqtt::message_ptr pubmsg = mqtt::make_message("cmnd/"+device+"/"+info, "");
-        mqtt::delivery_token_ptr token = client->publish(pubmsg, nullptr, cb);
+        mqtt::delivery_token_ptr token = client->publish(pubmsg, nullptr, *cb);
         
         //If no time out
         if(token->wait_for(TIMEOUT)){
@@ -127,13 +141,13 @@ Device::REQUEST_RESPONSE MQTTClient::getInfoFromDevice(string device, string inf
 
             //Wait until response or timeout
             int rc = 0;
-            while(!cb.getMessageFlag(replyTopic) && rc == 0){
+            while(!(cb->getMessageFlag(replyTopic)) && rc == 0){
                 rc = pthread_cond_timedwait(&receivedSignal,&mutex,&ts);        
             }   
 
             //Get the response
-            string _response = cb.getMessageResponse(replyTopic);
-            cb.removeRequest(replyTopic);
+            string _response = cb->getMessageResponse(replyTopic);
+            cb->removeRequest(replyTopic);
 
             //If error during the request
             if(rc != 0){
@@ -161,11 +175,61 @@ Device::REQUEST_RESPONSE MQTTClient::getInfoFromDevice(string device, string inf
     return Device::REQUEST_RESPONSE::INTERNAL_ERROR;
 }
 
+
+/**
+ * @brief This function is used by the message consumer thread
+ * 
+ */
+void MQTTClient::messageConsumerFunc(bool *threadExitFlag,std::vector<Device::Device> *devices, callback *cb, pthread_mutex_t* messageConsumerMutex, pthread_cond_t* newMessageSignal){
+    
+    //Lock ressources
+    pthread_mutex_lock(messageConsumerMutex);
+
+    //Setup the delivery system
+    cb->setupMessageDelivery(messageConsumerMutex,newMessageSignal);
+
+    //While not exit
+    while(!(*threadExitFlag)){
+
+        //Prepare to wait
+        struct timespec ts;
+        timespec_get(&ts, TIME_UTC);
+        ts.tv_sec += 1;
+
+        while((cb->getMessageQueueSize() == 0) && !(*threadExitFlag))
+            pthread_cond_timedwait(newMessageSignal,messageConsumerMutex,&ts);
+
+        MQTTMessage msg;
+        if(!cb->consumeMessage(&msg)){
+            cout << "(" << msg.topic << ") -> " << msg.payload << endl;
+        }
+            
+    }
+
+    pthread_mutex_unlock(messageConsumerMutex);
+}
+
 /**
  * @brief Destroy the MQTTClient::MQTTClient object
  * 
  */
 MQTTClient::~MQTTClient(){
+
+    //Stop the consumer thread
+    cout << "Stopping consumer thread (5s max)....";
+    cout.flush();
+    *threadExitFlag = true;
+
+    //Take the lock
+    pthread_mutex_lock(messageConsumerMutex);
+    pthread_cond_signal(newMessageSignal);
+    pthread_mutex_unlock(messageConsumerMutex);
+
+    messageConsumerThread->join();
+
+    cout << "[OK]" << endl;
+
+    //Disconnect from the brocker
     try{
         //  Check that there are no pending tokens
         auto toks = client->get_pending_delivery_tokens();
@@ -180,4 +244,13 @@ MQTTClient::~MQTTClient(){
     catch (const mqtt::exception& exc) {
         cerr << exc.what() << endl;
     }
+
+    //Free the memory
+    delete messageConsumerThread;
+    delete threadExitFlag;
+    delete newMessageSignal;
+    delete messageConsumerMutex;
+    delete client;
+    delete cb;
+
 }

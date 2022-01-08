@@ -14,13 +14,22 @@
 using namespace std;
 
 typedef struct WaitRequest{
+	
 	string topic = "";
 	bool flag = 0;
 	string response;
 
 	pthread_mutex_t *mutex;
 	pthread_cond_t *receiveSignal;
+
 } WaitRequest;
+
+typedef struct MQTTMessage{
+
+	string topic;
+	string payload;
+
+} MQTTMessage;
 
 /**
  * A callback class for use with the main MQTT client.
@@ -29,6 +38,9 @@ class callback : public virtual mqtt::callback,
 					public virtual mqtt::iaction_listener
 {
 public:
+	callback(){
+		pthread_mutex_init(&messageQueueMutex, NULL);
+	}
 
 	void connection_lost(const string& cause) override {
 		cout << "\nConnection lost" << endl;
@@ -47,9 +59,6 @@ public:
 	}
 
     void message_arrived(mqtt::const_message_ptr msg) override {
-		std::cout << "Message arrived" << std::endl;
-		std::cout << "\ttopic: '" << msg->get_topic() << "'" << std::endl;
-		std::cout << "\tpayload: '" << msg->to_string() << "'\n" << std::endl;
 
 		//Check if the topic is in the wait list
 		for(int i = 0;i<waitList.size();i++){
@@ -68,6 +77,17 @@ public:
 			}
 		}
 
+		//Add this message to the queue
+		pthread_mutex_lock(&messageQueueMutex);
+		messageQueue.push({msg->get_topic(),msg->to_string()});	
+		pthread_mutex_unlock(&messageQueueMutex);
+
+		//Signal the new message
+		if(messageDeliveryMutex != nullptr){
+			pthread_mutex_lock(messageDeliveryMutex);
+			pthread_cond_signal(newMessageSignal);
+			pthread_mutex_unlock(messageDeliveryMutex);
+		}
 	}
 
 	void on_failure(const mqtt::token& tok) override {
@@ -91,7 +111,7 @@ public:
 			}
 		}
 
-		cout << "Warning: A none registered request as been pulled" << endl;
+		cout << "Warning: A not registered request as been pulled" << endl;
 		return false;
 	}
 
@@ -103,7 +123,7 @@ public:
 			}
 		}
 
-		cout << "Warning: A none registered request as been pulled" << endl;
+		cout << "Warning: A not registered request as been pulled" << endl;
 		return "";
 	}
 
@@ -117,8 +137,46 @@ public:
 
 	}
 
-	vector<WaitRequest> waitList;
-    
+	int consumeMessage(MQTTMessage *msg){
+
+		bool rc = 1;		
+		pthread_mutex_lock(&messageQueueMutex);
+		
+		if(messageQueue.size() > 0){
+			msg->topic = messageQueue.front().topic;
+			msg->payload = messageQueue.front().payload;
+			messageQueue.pop();
+			rc = 0;
+		}
+		
+		pthread_mutex_unlock(&messageQueueMutex);
+
+		return rc;
+	}
+
+	void setupMessageDelivery(pthread_mutex_t *_messageDeliveryMutex, pthread_cond_t *_newMessageSignal){
+		messageDeliveryMutex = _messageDeliveryMutex;
+		newMessageSignal = _newMessageSignal;
+	}
+
+	int getMessageQueueSize(){
+		
+		pthread_mutex_lock(&messageQueueMutex);
+		int size = messageQueue.size();
+		pthread_mutex_unlock(&messageQueueMutex);
+
+		return size; 
+	}
+	
+
+	private:
+		vector<WaitRequest> waitList;
+		
+		pthread_mutex_t messageQueueMutex;
+		queue<MQTTMessage> messageQueue;
+
+		pthread_mutex_t *messageDeliveryMutex = nullptr;
+		pthread_cond_t *newMessageSignal = nullptr;
 };
 
 

@@ -46,19 +46,23 @@ int main(int argc, char* argv[])
 	}	
 
 	//Declare client
-	MQTTClient *client = new MQTTClient(devices);
+	MQTTClient *client = new MQTTClient(&devices);
 
 	//Create API
 	webserver ws = create_webserver(8080);
-    SetApiHandler setHandler(client);
+    
+	SetApiHandler setHandler(client);
 	GetApiHandler getHandler(client);
+	GPApiHandler gpApiHandler(client);
+	
     ws.register_resource("\/[a-z]+[0-9]*\/set[0-9]*", &setHandler);
 	ws.register_resource("\/[a-z]+[0-9]*\/get[0-9]*", &getHandler);
+	ws.register_resource("/list",&gpApiHandler);
     ws.start();
 
 	//Register exit signal and loop
 	signal(SIGINT, signal_callback_handler);
-	while(!exitFlag);
+	while(!exitFlag) sleep(1);
 
 	#if ENABLE_CONSOLE == 1
 	

@@ -63,7 +63,6 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="classcallback-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">callback Class Reference</div>  </div>
@@ -124,12 +123,15 @@ string&#160;</td><td class="memItemRight" valign="bottom"><b>getMessageResponse<
 <tr class="memitem:af9528d3a3a5351dca7683ac4dd25ded9"><td class="memItemLeft" align="right" valign="top"><a id="af9528d3a3a5351dca7683ac4dd25ded9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>removeRequest</b> (string _topic)</td></tr>
 <tr class="separator:af9528d3a3a5351dca7683ac4dd25ded9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a19ebb332cbf82ea2f26a6a0da434015c"><td class="memItemLeft" align="right" valign="top"><a id="a19ebb332cbf82ea2f26a6a0da434015c"></a>
-vector&lt; <a class="el" href="structWaitRequest.html">WaitRequest</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>waitList</b></td></tr>
-<tr class="separator:a19ebb332cbf82ea2f26a6a0da434015c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace8201b9bff13b8b19d668f642893417"><td class="memItemLeft" align="right" valign="top"><a id="ace8201b9bff13b8b19d668f642893417"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>consumeMessage</b> (<a class="el" href="structMQTTMessage.html">MQTTMessage</a> *msg)</td></tr>
+<tr class="separator:ace8201b9bff13b8b19d668f642893417"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acabd64ad1ae655b24b3e555f264bcdb6"><td class="memItemLeft" align="right" valign="top"><a id="acabd64ad1ae655b24b3e555f264bcdb6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setupMessageDelivery</b> (pthread_mutex_t *_messageDeliveryMutex, pthread_cond_t *_newMessageSignal)</td></tr>
+<tr class="separator:acabd64ad1ae655b24b3e555f264bcdb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace0fdcba50be93ffd1dcaf14225a48ab"><td class="memItemLeft" align="right" valign="top"><a id="ace0fdcba50be93ffd1dcaf14225a48ab"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>getMessageQueueSize</b> ()</td></tr>
+<tr class="separator:ace0fdcba50be93ffd1dcaf14225a48ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A callback class for use with the main MQTT client. </p>

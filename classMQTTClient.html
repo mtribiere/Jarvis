@@ -63,6 +63,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="classMQTTClient-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">MQTTClient Class Reference</div>  </div>
@@ -71,9 +72,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0401280863c51b0e4229e59f6463d59e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a0401280863c51b0e4229e59f6463d59e">MQTTClient</a> (std::vector&lt; <a class="el" href="structDevice_1_1Device.html">Device::Device</a> &gt; _devices)</td></tr>
-<tr class="memdesc:a0401280863c51b0e4229e59f6463d59e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classMQTTClient.html#a0401280863c51b0e4229e59f6463d59e" title="Construct a new MQTTClient::MQTTClient object.">MQTTClient::MQTTClient</a> object.  <a href="classMQTTClient.html#a0401280863c51b0e4229e59f6463d59e">More...</a><br /></td></tr>
-<tr class="separator:a0401280863c51b0e4229e59f6463d59e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a809b7bea8739daecfed63aab21afc832"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a809b7bea8739daecfed63aab21afc832">MQTTClient</a> (std::vector&lt; <a class="el" href="structDevice_1_1Device.html">Device::Device</a> &gt; *_devices)</td></tr>
+<tr class="memdesc:a809b7bea8739daecfed63aab21afc832"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classMQTTClient.html#a809b7bea8739daecfed63aab21afc832" title="Construct a new MQTTClient::MQTTClient object.">MQTTClient::MQTTClient</a> object.  <a href="classMQTTClient.html#a809b7bea8739daecfed63aab21afc832">More...</a><br /></td></tr>
+<tr class="separator:a809b7bea8739daecfed63aab21afc832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74706e90f6b019482a1df9a85d110004"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a74706e90f6b019482a1df9a85d110004">publishMessage</a> (string msg, string topic)</td></tr>
 <tr class="memdesc:a74706e90f6b019482a1df9a85d110004"><td class="mdescLeft">&#160;</td><td class="mdescRight">Publish a MQTT message on a topic.  <a href="classMQTTClient.html#a74706e90f6b019482a1df9a85d110004">More...</a><br /></td></tr>
 <tr class="separator:a74706e90f6b019482a1df9a85d110004"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -83,16 +84,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abbc536021ca558f286dc0d9148c355bf"><td class="memItemLeft" align="right" valign="top"><a id="abbc536021ca558f286dc0d9148c355bf"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>subscribeToDeviceTopic</b> (<a class="el" href="structDevice_1_1Device.html">Device::Device</a> device)</td></tr>
 <tr class="separator:abbc536021ca558f286dc0d9148c355bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93d77edcc2bf77d5693d8468cdeca7fa"><td class="memItemLeft" align="right" valign="top">Device::REQUEST_RESPONSE&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a93d77edcc2bf77d5693d8468cdeca7fa">getInfoFromDevice</a> (string device, string info, string id, string &amp;response)</td></tr>
+<tr class="memitem:a93d77edcc2bf77d5693d8468cdeca7fa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceDevice.html#acd67fc8fb47180bc698251ec63132ba6">Device::REQUEST_RESPONSE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a93d77edcc2bf77d5693d8468cdeca7fa">getInfoFromDevice</a> (string device, string info, string id, string &amp;response)</td></tr>
 <tr class="memdesc:a93d77edcc2bf77d5693d8468cdeca7fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get an info from a device.  <a href="classMQTTClient.html#a93d77edcc2bf77d5693d8468cdeca7fa">More...</a><br /></td></tr>
 <tr class="separator:a93d77edcc2bf77d5693d8468cdeca7fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5ec1c4e5bc659ef561a6cc2497469f5b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#a5ec1c4e5bc659ef561a6cc2497469f5b">~MQTTClient</a> ()</td></tr>
-<tr class="memdesc:a5ec1c4e5bc659ef561a6cc2497469f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="classMQTTClient.html#a0401280863c51b0e4229e59f6463d59e" title="Construct a new MQTTClient::MQTTClient object.">MQTTClient::MQTTClient</a> object.  <a href="classMQTTClient.html#a5ec1c4e5bc659ef561a6cc2497469f5b">More...</a><br /></td></tr>
+<tr class="memdesc:a5ec1c4e5bc659ef561a6cc2497469f5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="classMQTTClient.html#a809b7bea8739daecfed63aab21afc832" title="Construct a new MQTTClient::MQTTClient object.">MQTTClient::MQTTClient</a> object.  <a href="classMQTTClient.html#a5ec1c4e5bc659ef561a6cc2497469f5b">More...</a><br /></td></tr>
 <tr class="separator:a5ec1c4e5bc659ef561a6cc2497469f5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae8c06fa6a49cb09b2d26c59355df0e5e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classMQTTClient.html#ae8c06fa6a49cb09b2d26c59355df0e5e">messageConsumerFunc</a> (bool *threadExitFlag, std::vector&lt; <a class="el" href="structDevice_1_1Device.html">Device::Device</a> &gt; *devices, <a class="el" href="classcallback.html">callback</a> *cb, pthread_mutex_t *messageConsumerMutex, pthread_cond_t *newMessageSignal)</td></tr>
+<tr class="memdesc:ae8c06fa6a49cb09b2d26c59355df0e5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This function is used by the message consumer thread.  <a href="classMQTTClient.html#ae8c06fa6a49cb09b2d26c59355df0e5e">More...</a><br /></td></tr>
+<tr class="separator:ae8c06fa6a49cb09b2d26c59355df0e5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a0401280863c51b0e4229e59f6463d59e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0401280863c51b0e4229e59f6463d59e">&#9670;&nbsp;</a></span>MQTTClient()</h2>
+<a id="a809b7bea8739daecfed63aab21afc832"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a809b7bea8739daecfed63aab21afc832">&#9670;&nbsp;</a></span>MQTTClient()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -100,14 +107,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>subscribeToDeviceTopi
         <tr>
           <td class="memname">MQTTClient::MQTTClient </td>
           <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="structDevice_1_1Device.html">Device::Device</a> &gt;&#160;</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structDevice_1_1Device.html">Device::Device</a> &gt; *&#160;</td>
           <td class="paramname"><em>_devices</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="classMQTTClient.html#a0401280863c51b0e4229e59f6463d59e" title="Construct a new MQTTClient::MQTTClient object.">MQTTClient::MQTTClient</a> object. </p>
+<p>Construct a new <a class="el" href="classMQTTClient.html#a809b7bea8739daecfed63aab21afc832" title="Construct a new MQTTClient::MQTTClient object.">MQTTClient::MQTTClient</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">_devices</td><td>The known devices </td></tr>
@@ -132,7 +139,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>subscribeToDeviceTopi
       </table>
 </div><div class="memdoc">
 
-<p>Destroy the <a class="el" href="classMQTTClient.html#a0401280863c51b0e4229e59f6463d59e" title="Construct a new MQTTClient::MQTTClient object.">MQTTClient::MQTTClient</a> object. </p>
+<p>Destroy the <a class="el" href="classMQTTClient.html#a809b7bea8739daecfed63aab21afc832" title="Construct a new MQTTClient::MQTTClient object.">MQTTClient::MQTTClient</a> object. </p>
 
 </div>
 </div>
@@ -144,7 +151,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>subscribeToDeviceTopi
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">Device::REQUEST_RESPONSE MQTTClient::getInfoFromDevice </td>
+          <td class="memname"><a class="el" href="namespaceDevice.html#acd67fc8fb47180bc698251ec63132ba6">Device::REQUEST_RESPONSE</a> MQTTClient::getInfoFromDevice </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>device</em>, </td>
@@ -185,7 +192,63 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>subscribeToDeviceTopi
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Device::REQUEST_RESPONSE The response code of the request </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceDevice.html#acd67fc8fb47180bc698251ec63132ba6" title="Response code for a request.">Device::REQUEST_RESPONSE</a> The response code of the request </dd></dl>
+
+</div>
+</div>
+<a id="ae8c06fa6a49cb09b2d26c59355df0e5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8c06fa6a49cb09b2d26c59355df0e5e">&#9670;&nbsp;</a></span>messageConsumerFunc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MQTTClient::messageConsumerFunc </td>
+          <td>(</td>
+          <td class="paramtype">bool *&#160;</td>
+          <td class="paramname"><em>threadExitFlag</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="structDevice_1_1Device.html">Device::Device</a> &gt; *&#160;</td>
+          <td class="paramname"><em>devices</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classcallback.html">callback</a> *&#160;</td>
+          <td class="paramname"><em>cb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pthread_mutex_t *&#160;</td>
+          <td class="paramname"><em>messageConsumerMutex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">pthread_cond_t *&#160;</td>
+          <td class="paramname"><em>newMessageSignal</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This function is used by the message consumer thread. </p>
 
 </div>
 </div>

@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,116,57"/>
-<area shape="rect" id="node2" href="$classGetApiHandler.html" title=" " alt="" coords="164,5,281,32"/>
-<area shape="rect" id="node3" href="$classSetApiHandler.html" title=" " alt="" coords="165,56,280,83"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,56,116,83"/>
+<area shape="rect" id="node2" href="$classGetApiHandler.html" title="The handler used to get a parameter from a device." alt="" coords="164,5,281,32"/>
+<area shape="rect" id="node3" href="$classGPApiHandler.html" title="The general purpuse handler for the API." alt="" coords="167,56,278,83"/>
+<area shape="rect" id="node4" href="$classSetApiHandler.html" title="The handler used to set a parameter on a device." alt="" coords="165,107,280,133"/>
 </map>

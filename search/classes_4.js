@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['setapihandler_18',['SetApiHandler',['../classSetApiHandler.html',1,'']]]
+  ['setapihandler_25',['SetApiHandler',['../classSetApiHandler.html',1,'']]]
 ];

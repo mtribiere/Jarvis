@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['setapihandler_9',['SetApiHandler',['../classSetApiHandler.html',1,'']]],
-  ['subscribetotopic_10',['subscribeToTopic',['../classMQTTClient.html#a0850842da632b94c426c19f2f2c038ec',1,'MQTTClient']]]
+  ['request_5fresponse_13',['REQUEST_RESPONSE',['../namespaceDevice.html#acd67fc8fb47180bc698251ec63132ba6',1,'Device']]]
 ];

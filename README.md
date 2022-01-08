@@ -1,9 +1,17 @@
 # Jarvis
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) [![CMake](https://github.com/mtribiere/Jarvis/actions/workflows/cmake.yml/badge.svg?branch=main)](https://github.com/mtribiere/Jarvis/actions/workflows/cmake.yml)<br>
 
+## Why Jarvis ?
+There is already out there a lot of Home Assistants, and very complete solutions for creating a so-called Smart House. So why Jarvis ?
+All those Assistants and solutions are offering hundred of features that most user will in fact never use, not always maintenable code, and complex architectures.
+Jarvis is my minimalistic approch to Smart House, with only a few but actually usefull features.
+
+"Better do a little well, than a great deal badly."
+  -Socrates
+  
 ## Description
 A set of tools and protocols to automate your house<br>
-For now, there is 3 main componants in this chain, the App, the executor, and the firmware.
+For now, there is 3 main componants in this chain, the App, the Executor, and the Firmware (Tasmota).
 <br><br>
 <img align="middle" src="pics/arch.png" width="600">
 <br><br>
@@ -14,19 +22,14 @@ For now, there is 3 main componants in this chain, the App, the executor, and th
 ## Compiling the Executor
 The executor can be compiled with 2 modes, controled by the ```CONSOLE_BUILD``` variable at the top of <b><i>main.cpp</i></b>
 
-| CONSOLE_BUILD | Executor |
-| ------------- | ------------- |
-| 1  | Disable the HTTP server and swap a terminal to debug manually devices  |
-| 0  | Disable the console and enable the API/HTTP server  |
-
-Before compiling, you need to install Boost, CrowCpp (If you enable API/HTTP), and Paho-MQTT.
+Before compiling, you need to install Boost, libhttpserver and Paho-MQTT.
 
 ```console
-cd Jarvis/executor
+cd Jarvis/Executor
 mkdir build && cd build
 cmake ..
 make
-./jarvis_executor
+./bin/jarvis_executor
 ```
 
 ## Todo List
